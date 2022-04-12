@@ -25,6 +25,9 @@
        </widget>
       </item>
       <item>
+       <widget class="Histogram" name="spectogram_view" native="true"/>
+      </item>
+      <item>
        <widget class="QLabel" name="label_3">
         <property name="maximumSize">
          <size>
@@ -44,22 +47,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="spectogram_label">
-        <property name="font">
-         <font>
-          <kerning>true</kerning>
-         </font>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255)</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
+       <widget class="Histogram" name="timefreq_view" native="true"/>
       </item>
       <item>
        <widget class="QLabel" name="label_4">
@@ -74,19 +62,6 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="timefreq_label">
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255)</string>
-        </property>
-        <property name="text">
-         <string/>
         </property>
        </widget>
       </item>
@@ -106,6 +81,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Histogram</class>
+   <extends>QWidget</extends>
+   <header>histogram.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

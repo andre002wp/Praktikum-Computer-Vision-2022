@@ -3,9 +3,12 @@
 import matplotlib.pyplot as plt
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 from PyQt5.QtWidgets import QFileDialog
+import pyqtgraph as pg
 from scipy.io import wavfile
 import sys
 import os
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import (NavigationToolbar2QT as NavigationToolbar)
 
 class Ui(QtWidgets.QMainWindow):
     
@@ -16,10 +19,6 @@ class Ui(QtWidgets.QMainWindow):
 
         self.btnOpenFile = self.findChild(QtWidgets.QPushButton, 'OpenFile_btn')
         self.btnOpenFile.clicked.connect(self.loadFile) 
-        self.btnOpenFile = self.findChild(QtWidgets.QPushButton, 'OpenFile_btn')
-        self.spectogram = self.findChild(QtWidgets.QLabel, 'spectogram_label')
-        self.timefreq = self.findChild(QtWidgets.QLabel, 'timefreq_label')
-        
         self.show()
 
     def loadFile(self):
@@ -37,24 +36,37 @@ class Ui(QtWidgets.QMainWindow):
             print(f"number of channels = {signalData.shape[1]}")
             length = signalData.shape[0] / samplingFrequency
             print(f"length = {length}s")
-            plt.figure(figsize=(15,10))
-            plt.title('Spectrogram of a wav file with piano music')
+            self.showSpectogram(signalData)
+            self.showTimeFreq(signalData[:,0],samplingFrequency)
 
-            plt.subplot(211)
-            plt.plot(signalData)
-            plt.xlabel('Sample')
-            plt.ylabel('Amplitude')
-            plt.subplot(212)
-            plt.specgram(signalData[:,0],Fs=samplingFrequency)
-            plt.xlabel('Time')
-            plt.ylabel('Frequency')
-            plt.show()
+            # plt.figure(figsize=(15,10))
+            # plt.title('Spectrogram of a wav file with piano music')
+            # plt.subplot(211)
+            # plt.plot(signalData)
+            # plt.xlabel('Sample')
+            # plt.ylabel('Amplitude')
+            # plt.subplot(212)
+            # plt.specgram(signalData[:,0],Fs=samplingFrequency)
+            # plt.xlabel('Time')
+            # plt.ylabel('Frequency')
+            # plt.show()
 
     def showSpectogram(self,spectogram):
-        pass
+        self.spectogram_view.canvas.axes.clear()
+        self.spectogram_view.canvas.axes.plot(spectogram)
+        # self.spectogram_view.canvas.axes.set_ylabel('Y', color='black')
+        # self.spectogram_view.canvas.axes.set_xlabel('X', color='black')
+        self.spectogram_view.canvas.axes.set_title('Spectogram')
+        self.spectogram_view.canvas.axes.grid()
+        self.spectogram_view.canvas.draw()
 
-    def showTimeFreq(self,timeFreq):
-        pass
+    def showTimeFreq(self,signalData,samplingFrequency):
+        self.timefreq_view.canvas.axes.clear()
+        self.timefreq_view.canvas.axes.specgram(signalData,Fs=samplingFrequency)
+        self.timefreq_view.canvas.axes.set_title('Time Frequency')
+        self.timefreq_view.canvas.axes.set_facecolor('green')
+        self.timefreq_view.canvas.axes.grid()
+        self.timefreq_view.canvas.draw()
     
 
 

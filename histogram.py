@@ -13,5 +13,5 @@ class Histogram(QtWidgets.QWidget):
         vertical_layout.addWidget(self.canvas)
         
         self.canvas.axes = self.canvas.figure.add_subplot(111)
-        self.canvas.figure.set_facecolor("xkcd:wheat")
+        self.canvas.figure.set_facecolor("white")
         self.setLayout(vertical_layout)
