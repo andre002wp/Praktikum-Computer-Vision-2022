@@ -3,7 +3,6 @@
 import matplotlib.pyplot as plt
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 from PyQt5.QtWidgets import QFileDialog
-from PyQt5.QtGui import QImage,QPixmap
 from scipy.io import wavfile
 import sys
 import os
@@ -19,9 +18,7 @@ class Ui(QtWidgets.QMainWindow):
         self.btnOpenFile.clicked.connect(self.loadFile) 
         self.btnOpenFile = self.findChild(QtWidgets.QPushButton, 'OpenFile_btn')
         self.spectogram = self.findChild(QtWidgets.QLabel, 'spectogram_label')
-        self.spectogram.setPixmap(self.rezizeandShow(self.getGreyVersion(self.img)))
         self.timefreq = self.findChild(QtWidgets.QLabel, 'timefreq_label')
-        self.timefreq.setPixmap(self.rezizeandShow(self.getGreyVersion(self.img)))
         
         self.show()
 
